@@ -1,0 +1,1 @@
+export const contact = ['メール', 'Twitter', 'Instagram'];

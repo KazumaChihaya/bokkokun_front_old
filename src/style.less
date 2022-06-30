@@ -1,0 +1,40 @@
+// 「ARROW管理ページ」がはみ出ないようにする
+.ant-pro-sider-logo h1 {
+  font-size: 14px;
+  word-break: keep-all;
+}
+
+// アニメーション(フェード)
+.anim-fade-enter {
+  opacity: 0;
+}
+
+.anim-fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms linear;
+}
+.anim-fade-exit {
+  opacity: 1;
+}
+.anim-fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+.anim-fade-exit-done {
+  opacity: 0;
+}
+
+// ページネーションの件数表示を左寄せ可能にする
+.ant-pagination-total-text {
+  flex-grow: 1;
+}
+
+// Descriptionの背景色が透明なのを修正
+.ant-descriptions-item-content {
+  background-color: #fff;
+}
+
+// タブの切替時に中身がサイドバーの領域に重ならないようにする
+.ant-layout-sider {
+  z-index: 10;
+}

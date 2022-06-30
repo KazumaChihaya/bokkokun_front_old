@@ -1,0 +1,63 @@
+{
+  "name": "vite",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint '{src,lib}/**/*.{j,t}{s,sx}' --fix && prettier '{src,lib}/**/*.{j,t}{s,sx}' --write",
+    "typecheck": "tsc --noEmit",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "src/*.{ts,tsx}": [
+      "eslint",
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@ant-design/pro-descriptions": "^1.10.63",
+    "@ant-design/pro-form": "^1.61.0",
+    "@ant-design/pro-layout": "^6.34.8",
+    "@ant-design/pro-table": "^2.71.2",
+    "antd": "^4.19.5",
+    "axios": "^0.26.1",
+    "classnames": "^2.3.1",
+    "dayjs": "^1.11.3",
+    "jaco": "^4.0.0",
+    "lodash-es": "^4.17.21",
+    "rc-field-form": "^1.27.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.4.0",
+    "react-intl": "^5.24.8",
+    "react-query": "^3.34.19",
+    "react-router-dom": "^6",
+    "react-transition-group": "^4.4.2",
+    "react-use": "^17.3.2",
+    "use-throttle": "^0.0.3"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "@types/node": "^17.0.35",
+    "@types/react": "^17.0.33",
+    "@types/react-color": "^3.0.6",
+    "@types/react-dom": "^17.0.10",
+    "@types/react-transition-group": "^4.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.26.0",
+    "@typescript-eslint/parser": "^5.26.0",
+    "@vitejs/plugin-react": "^1.0.7",
+    "eslint": "^8.16.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "husky": "^8.0.0",
+    "less": "^4.1.2",
+    "lint-staged": "^13.0.2",
+    "prettier": "^2.6.2",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.0",
+    "vite-plugin-antd-layout": "^0.3.0"
+  }
+}
