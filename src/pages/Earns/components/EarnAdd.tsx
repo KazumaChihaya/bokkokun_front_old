@@ -45,9 +45,8 @@ const EarnAdd: React.FC<EarnAddProps> = ({
   }
 
   const cleanupState = () => {
-    console.log(addValue);
     setAddValue({
-      artist_code: addValue.artist_code,
+      artist_code: '',
       code: '',
       date: addValue.date,
       store_id: Number(activeKey),
@@ -86,12 +85,12 @@ const EarnAdd: React.FC<EarnAddProps> = ({
     <>
       <Descriptions size="small" layout="vertical" column={5} bordered>
         <Descriptions.Item label="作家記号">
-          <Input style={{width: '100px'}} value={addValue.artist_code} defaultValue={addValue.artist_code} onKeyPress={onKeyPress} onChange={(e) => {
+          <Input style={{width: '100px'}} value={addValue.artist_code} defaultValue={addValue.artist_code} onKeyPress={onKeyPress} ref={inputEl} onChange={(e) => {
             setAddValue({ ...addValue, artist_code: e.target.value });
           }}/>
         </Descriptions.Item>
         <Descriptions.Item label="作品番号">
-          <Input style={{width: '100px'}} value={addValue.code} defaultValue={addValue.code} onKeyPress={onKeyPress} ref={inputEl} onChange={(e) => {
+          <Input style={{width: '100px'}} value={addValue.code} defaultValue={addValue.code} onKeyPress={onKeyPress} onChange={(e) => {
             setAddValue({ ...addValue, code: e.target.value });
           }}/>
         </Descriptions.Item>

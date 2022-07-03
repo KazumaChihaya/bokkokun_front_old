@@ -8,6 +8,7 @@ import {
   Card,
   Button,
   Table,
+  Input,
 } from 'antd';
 
 import React, { useState } from 'react';
@@ -17,7 +18,7 @@ import { ArtistDetail, BoxInvoice, EarnInvoice } from '@/services/arrow-manage/a
 import { antize } from '../../libs/icon';
 import { MdOutlineDomain } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { FormOutlined } from '@ant-design/icons';
+import { FormOutlined, TagsOutlined } from '@ant-design/icons';
 import { Artist, ActiveBox, ReserveBox, useArtist } from '@/services/arrow-manage/artist';
 import { contact } from './util';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
@@ -32,6 +33,12 @@ import ReserveBoxResign from './components/ReserveBoxResign';
 import ActiveBoxEdit from './components/ActiveBoxEdit';
 import ReserveBoxEdit from './components/ReserveBoxEdit';
 import ReserveBoxDelete from './components/ReserveBoxDelete';
+import ReserveBoxReserveToActive from './components/ReserveBoxReserveToActive';
+import { Pool, usePool, usePoolCalc } from '@/services/arrow-manage/pool';
+import PoolAdd from './components/PoolAdd';
+import PoolEdit from './components/PoolEdit';
+import PoolDelete from './components/PoolDelete';
+import ProTable from '@ant-design/pro-table';
 
 export type ArtistDetailProps = {
   artist: ArtistDetail;
@@ -81,6 +88,15 @@ const diffBoxInvoice = (...props: (keyof BoxInvoice)[]) => {
     return false;
   };
 };
+const diffPool = (...props: (keyof Pool)[]) => {
+  return (pool: Pool, prev: Pool) => {
+    for (const prop of props) {
+      if (pool[prop] !== prev[prop]) return true;
+    }
+    return false;
+  };
+};
+
 
 const boxColumns: ColumnsType<Box> = [
   {
@@ -116,7 +132,10 @@ const boxColumns: ColumnsType<Box> = [
       box.status == '予約中' ?
       (
         box.reserve_box?.ended_on === null ?
-        <ReserveBoxResign box={box}/> :
+        <>
+          <ReserveBoxResign box={box}/>
+          <ReserveBoxReserveToActive box={box}/>
+        </> :
         <span>{format(new Date(box.reserve_box?.ended_on ?? '0000-00-00'), 'yyyy年MM月dd日')}</span>
       ) :
       (
@@ -132,6 +151,40 @@ const boxColumns: ColumnsType<Box> = [
   },
 ];
 
+
+const poolColumns: ColumnsType<Pool> = [
+  {
+    title: '日付',
+    key: 'date',
+    render: (_, { date, id }) => (
+      <div style={{ minWidth: '8em' }}>
+        {format(new Date(date), 'yyyy年MM月dd日')}
+      </div>
+    ),
+    shouldCellUpdate: diffPool('date'),
+  },
+  {
+    title: '金額',
+    key: 'money',
+    render: (_, { money, id }) => (
+      <div style={{ minWidth: '8em' }}>
+        ¥{money.toLocaleString()}
+      </div>
+    ),
+    shouldCellUpdate: diffPool('money'),
+  },
+  {
+    title: '変更',
+    key: 'button',
+    width: '12em',
+    render: (_, pool) => (
+      <>
+        <PoolEdit key={"edit_pool_"+pool.id} pool={pool}/> 
+        <PoolDelete key={"delete_pool_"+pool.id} pool={pool}/> 
+      </>
+    ),
+  },
+];
 
 const activeBoxColumns: ColumnsType<ActiveBox> = [
   {
@@ -288,6 +341,10 @@ const CompanyDetailPage: React.FC<ArtistDetailProps> = ({}) => {
   const { id } = useParams();
   const { data: data } =
     useArtist(Number(id)) as UseQueryResult<{artist: Artist, boxes: Box[], active_boxes: ActiveBox[], reserve_boxes: ReserveBox[], box_invoices: BoxInvoice[], earn_invoices: EarnInvoice[]}>;
+  const { data: pools, isLoading } =
+    usePool(Number(id)) as UseQueryResult<Pool[]>;
+  const { data: pool_calc } =
+    usePoolCalc(Number(id)) as UseQueryResult<{sum: number, yearmonth: string | null, mod: number | null, }>;
   const artist = data?.artist;
   const boxes = data?.boxes;
   const active_boxes = data?.active_boxes;
@@ -406,6 +463,46 @@ const CompanyDetailPage: React.FC<ArtistDetailProps> = ({}) => {
           span={12}
           style={{ paddingRight: '10px' }}
         >
+          <Card
+            title={
+              <>
+                <FormOutlined style={{ marginRight: '0.3em' }} />
+                前払いプール
+                <PoolAdd artist={artist}/>
+              </>
+            }
+          >
+            <ProTable
+              scroll={{ x: true }}
+              dataSource={pools}
+              loading={isLoading}
+              columns={poolColumns}
+              pagination={false}
+              search={false}
+              size="small"
+              tableExtraRender={(_, data) => (
+                <Card>
+                  <Descriptions size="small" layout="vertical" column={2} bordered>
+                    <Descriptions.Item label="プール合計金額">
+                      ¥{pool_calc?.sum.toLocaleString()}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="概算支払済月">
+                      {(pool_calc?.yearmonth ? 
+                        format(new Date(pool_calc.yearmonth+'-01'), 'yyyy年MM月')+'まで'
+                        : '計算不可'
+                      )}
+                    </Descriptions.Item>
+                    <Descriptions.Item label="余り">
+                      {(pool_calc?.mod ? 
+                        '¥'+pool_calc?.mod.toLocaleString()
+                        : '計算不可'
+                      )}
+                    </Descriptions.Item>
+                  </Descriptions>
+                </Card>
+              )}
+            />
+          </Card>
           <Card
             title={
               <>

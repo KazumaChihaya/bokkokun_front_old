@@ -127,6 +127,14 @@ export type ResignReserveBoxParam = {
   box_id: number,
   ended_on?: string;
 }
+export type ReserveToActiveBoxParam = {
+  reserve_box_id: number,
+  artist_id: number,
+  box_id: number,
+  ended_on?: string;
+  money: number;
+}
+
 
 export type EditActiveBoxParam = {
   active_box_id: number,
@@ -216,6 +224,7 @@ export const useCreateActiveBoxMutation = () => {
     },
   );
 };
+
 export const useCreateReserveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
@@ -255,6 +264,23 @@ export const useResignReserveBoxMutation = () => {
   return useMutation(
     (data: ResignReserveBoxParam) => {
       return request('/api/reservebox/resign', { method: 'post', data: data });
+    },
+    {
+      onSuccess(res, data: ResignReserveBoxParam) {
+        client.invalidateQueries(artistsQueryKey);
+        client.invalidateQueries(artistQueryKey+data.artist_id);
+        client.invalidateQueries(boxesQueryKey);
+        client.invalidateQueries(boxQueryKey+data.box_id);
+      },
+    },
+  );
+};
+
+export const useReserveToActiveBoxMutation = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (data: ResignReserveBoxParam) => {
+      return request('/api/reservebox/toactive', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: ResignReserveBoxParam) {

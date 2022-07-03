@@ -40,6 +40,7 @@ type Store = {
   updated_at: string;
 }
 
+
 const boxesQueryKey = '/api/box';
 
 export const useBoxes = () => useQuery<Box[]>(boxesQueryKey);
