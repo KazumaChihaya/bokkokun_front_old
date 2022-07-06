@@ -18,7 +18,7 @@ export type LoginResult = {
   result: 'ok';
 };
 
-const SessionQueryKey = '/api/auth/session';
+const SessionQueryKey = '/api/auth/session/manager';
 
 export const useSession = () => useQuery<SessionData>(SessionQueryKey);
 
@@ -27,7 +27,7 @@ export const useLoginMutation = () => {
   return useMutation(
     (data: LoginParams) => {
       return request<LoginResult>({
-        url: '/api/auth/login',
+        url: '/api/auth/login/manager',
         method: 'post',
         data,
       });
@@ -42,5 +42,5 @@ export const useLoginMutation = () => {
 
 export const useLogoutMutation = () =>
   useMutation(() => {
-    return request('/api/auth/session', { method: 'delete' });
+    return request('/api/auth/session/manager', { method: 'delete' });
   });

@@ -5,13 +5,13 @@ import { antize } from '@/libs/icon';
 
 export const routes: (MenuDataItem & RouteObject)[] = [
   {
-    path: '/user',
+    path: '/manager',
     layout: false,
     children: [
       {
         name: 'manager.login',
         path: 'login',
-        component: './user/Login',
+        component: './Manager/Login',
       },
     ],
   },

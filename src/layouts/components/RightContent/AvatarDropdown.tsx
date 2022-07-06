@@ -27,7 +27,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const { data: currentUser, isLoading } = useSession();
+  const { data: session, isLoading } = useSession();
 
   const { mutate: logout } = useLogoutMutation();
 
@@ -39,11 +39,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
     const { search, pathname } = location;
     // Note: There may be security issues, please note
     if (
-      window.location.pathname !== '/user/login' &&
+      window.location.pathname !== '/manager/login' &&
       !searchParams.has('redirect')
     ) {
       navigate(
-        `/user/login?${createSearchParams({
+        `/manager/login?${createSearchParams({
           redirect: pathname + search,
         }).toString()}`,
         {
@@ -77,7 +77,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
 
   if (isLoading) return loading;
 
-  if (!currentUser || !currentUser.manager?.name) return loading;
+  if (!session || !session.name) return loading;
 
   const menuHeaderDropdown = (
     <Menu
@@ -85,16 +85,6 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
       selectedKeys={[]}
       onClick={onMenuClick}
       items={[
-        {
-          key: 'center',
-          icon: <UserOutlined />,
-          label: 'アカウント',
-        },
-        {
-          key: 'settings',
-          icon: <SettingOutlined />,
-          label: '個人設定',
-        },
         {
           key: 'logout',
           icon: <LogoutOutlined />,
@@ -107,7 +97,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
     <HeaderDropdown overlay={menuHeaderDropdown}>
       <span className={`${styles.action} ${styles.account}`}>
         <span className={`${styles.name} anticon`}>
-          {currentUser.manager?.name}
+          {session.name}
         </span>
       </span>
     </HeaderDropdown>
