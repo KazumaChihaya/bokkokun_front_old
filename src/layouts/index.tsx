@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { routes as manager_routes } from '@/routes/manager';
 import { routes as artist_routes } from '@/routes/artist';
 import { useIntl } from 'react-intl';
-import { useSession } from '@/services/manager/auth';
+import { useSession } from '@/services/auth/auth';
 import React, { useEffect, useState } from 'react';
 import { TransitionChildren } from 'react-transition-group/Transition';
 import { CustomTitleContext, CustomTitleData } from './hooks/useCustomTitle';
@@ -28,9 +28,9 @@ export default function LayoutWrapper() {
 
   useEffect(() => {
     // 未ログイン時は強制的にログインページへ移動
-    if (!isFetching && (session?.status ?? 'ng') != 'ok' && location.pathname !== '/manager/login') {
+    if (!isFetching && (session?.status ?? 'ng') != 'ok' && location.pathname !== '/login') {
       requestAnimationFrame(() => {
-        navigate('/manager/login');
+        navigate('/login');
       });
     }
   });

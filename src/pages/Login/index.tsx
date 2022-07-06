@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '@/layouts/components/Footer';
-import { LoginParams, useLoginMutation } from '@/services/manager/auth';
+import { LoginParams, useLoginMutation } from '@/services/auth/auth';
 import { AxiosError } from 'axios';
 
 const LoginMessage: React.FC<{
@@ -39,7 +39,11 @@ const Login: React.FC = () => {
         if (!history) return;
         const query = new URLSearchParams(location.search);
         const redirect = query.get('redirect');
-        navigate(redirect || '/');
+        if (msg.type === 'manager') {
+          navigate(redirect || '/manager/artists');
+        } else {
+          navigate(redirect || '/artist/artists');
+        }
         return;
       }
     } catch (e) {

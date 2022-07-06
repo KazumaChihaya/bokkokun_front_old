@@ -5,74 +5,68 @@ import { antize } from '@/libs/icon';
 
 export const routes: (MenuDataItem & RouteObject)[] = [
   {
-    path: '/user',
+    path: '',
     layout: false,
     children: [
       {
         name: 'login',
         path: 'login',
-        component: './user/Login',
+        component: './Login',
       },
     ],
   },
   {
-    path: '/manager/artists',
-    name: 'artists',
+    path: '/artist/artists',
+    name: 'artist.artists',
     icon: antize(MdOutlineManageAccounts),
-    component: './Artists',
+    component: './Artist/Artists',
     hideChildrenInMenu: true,
     children: [
       {
-        locale: 'menu.artists.detail',
-        name: 'artists.detail',
+        locale: 'menu.artist.artists.detail',
+        name: 'artist.artists.detail',
         path: ':id',
-        component: './Artists/detail',
+        component: './Artist/Artists/detail',
       },
     ],
   },
   {
-    path: '/manager/boxes',
-    name: 'boxes',
+    path: '/artist/boxes',
+    name: 'artist.boxes',
     icon: antize(MdOutlineManageAccounts),
-    component: './Boxes',
+    component: './Artist/Boxes',
     hideChildrenInMenu: true,
     children: [
       {
-        locale: 'menu.boxes.detail',
-        name: 'boxes.detail',
+        locale: 'menu.artist.boxes.detail',
+        name: 'artist.boxes.detail',
         path: ':id',
-        component: './Boxes/detail',
+        component: './Artist/Boxes/detail',
       },
     ],
   },
   {
-    path: '/earns',
-    name: 'earns',
+    path: '/artist/earns',
+    name: 'artist.earns',
     icon: antize(MdOutlineManageAccounts),
-    component: './Earns',
+    component: './Artist/Earns',
   },
   {
-    path: '/box_invoices',
-    name: 'box_invoices',
+    path: '/artist/box_invoices',
+    name: 'artist.box_invoices',
     icon: antize(MdOutlineManageAccounts),
-    component: './BoxInvoices',
+    component: './Artist/BoxInvoices',
   },
   {
-    path: '/earn_invoices',
-    name: 'earn_invoices',
+    path: '/artist/earn_invoices',
+    name: 'artist.earn_invoices',
     icon: antize(MdOutlineManageAccounts),
-    component: './EarnInvoices',
-  },
-  {
-    path: '/earn_invoices',
-    name: 'earn_invoices',
-    icon: antize(MdOutlineManageAccounts),
-    component: './EarnInvoices',
+    component: './Artist/EarnInvoices',
   },
 
   {
     path: '/',
-    redirect: '/manager/artists',
+    redirect: '/artist/artists',
   },
   {
     component: './404',

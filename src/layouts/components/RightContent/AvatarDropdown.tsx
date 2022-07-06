@@ -16,7 +16,7 @@ import {
 import {
   useLogoutMutation,
   useSession,
-} from '@/services/manager/auth';
+} from '@/services/auth/auth';
 
 export interface GlobalHeaderRightProps {
   menu?: boolean;
@@ -39,11 +39,11 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = () => {
     const { search, pathname } = location;
     // Note: There may be security issues, please note
     if (
-      window.location.pathname !== '/manager/login' &&
+      window.location.pathname !== '/login' &&
       !searchParams.has('redirect')
     ) {
       navigate(
-        `/manager/login?${createSearchParams({
+        `/login?${createSearchParams({
           redirect: pathname + search,
         }).toString()}`,
         {
