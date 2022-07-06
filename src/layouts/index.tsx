@@ -4,7 +4,8 @@ import Footer from './components/Footer';
 import Layout from 'virtual:antd-layout';
 import { PageContainer, PageLoading } from '@ant-design/pro-layout';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { routes } from '@/routes';
+import { routes as manager_routes } from '@/routes/manager';
+import { routes as artist_routes } from '@/routes/artist';
 import { useIntl } from 'react-intl';
 import { useSession } from '@/services/arrow-manage/auth';
 import React, { useEffect, useState } from 'react';
@@ -17,7 +18,6 @@ export * from './hooks';
 
 export default function LayoutWrapper() {
   const { data: session, isFetching, isLoading } = useSession();
-  const manager = session?.manager;
 
   const [layout] = useLayout();
 
@@ -28,7 +28,7 @@ export default function LayoutWrapper() {
 
   useEffect(() => {
     // 未ログイン時は強制的にログインページへ移動
-    if (!isFetching && !manager && location.pathname !== '/user/login') {
+    if (!isFetching && (session?.status ?? 'ng') != 'ok' && location.pathname !== '/user/login') {
       requestAnimationFrame(() => {
         navigate('/user/login');
       });
@@ -60,7 +60,7 @@ export default function LayoutWrapper() {
       }}
       */
       openKeys={[]}
-      routes={routes}
+      routes={session?.type == 'manager' ? manager_routes : artist_routes}
       rightContentRender={() => <RightContent />}
       disableContentMargin={false}
       footerRender={() => <Footer />}

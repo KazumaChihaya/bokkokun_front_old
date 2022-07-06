@@ -2,11 +2,11 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { request } from '@/libs/request';
 
 export type SessionData = {
-  manager: {
-    id: number;
-    email: string;
-    name: string;
-  };
+  type: string,
+  id: number;
+  email: string;
+  name: string;
+  status: string;
 };
 
 export type LoginParams = {
