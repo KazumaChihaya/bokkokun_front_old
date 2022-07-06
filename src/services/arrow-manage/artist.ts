@@ -51,7 +51,7 @@ export type ReserveBox = {
 export type BoxInvoice = {
   id: number;
   yearmonth: string,
-  lock_type: number,
+  lock_type: boolean,
   created_at: string;
   updated_at: string; 
 
@@ -67,10 +67,13 @@ export type EarnInvoice = {
   each_earn_invoice?: EachEarnInvoice,
 }
 export type EachBoxInvoice = {
+  id: number,
   box_invoice_id: number,
   artist_id: number,
   money: number,
   status: boolean,
+
+  artist?: Artist,
 };
 export type EachEarnInvoice = {
   earn_invoice_id: number,

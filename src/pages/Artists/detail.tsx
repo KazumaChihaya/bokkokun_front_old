@@ -38,7 +38,9 @@ import { Pool, usePool, usePoolCalc } from '@/services/arrow-manage/pool';
 import PoolAdd from './components/PoolAdd';
 import PoolEdit from './components/PoolEdit';
 import PoolDelete from './components/PoolDelete';
-import ProTable from '@ant-design/pro-table';
+import ProTable, { ProColumns } from '@ant-design/pro-table';
+import { status_opt } from '../BoxInvoices/components/util';
+import ChangeStatus from '../BoxInvoices/components/ChangeStatus';
 
 export type ArtistDetailProps = {
   artist: ArtistDetail;
@@ -152,7 +154,7 @@ const boxColumns: ColumnsType<Box> = [
 ];
 
 
-const poolColumns: ColumnsType<Pool> = [
+const poolColumns: ProColumns<Pool> = [
   {
     title: '日付',
     key: 'date',
@@ -301,7 +303,10 @@ const boxInvoiceColumns: ColumnsType<BoxInvoice> = [
     title: '支払',
     key: 'ended_on',
     render: (_, { each_box_invoice, id }) => (
-      <span>{each_box_invoice ? (each_box_invoice?.status ? '済' : '未') : ''}</span>
+      <>
+        <span style={{marginRight: '5px'}}>{status_opt[each_box_invoice?.status ? 1 : 0]}</span>
+        <ChangeStatus key={"change_finish_"+each_box_invoice?.id} status={each_box_invoice?.status ?? false} each_box_invoice_id={each_box_invoice?.id ?? 0} box_invoice_id={each_box_invoice?.box_invoice_id ?? 0} artist_id={each_box_invoice?.artist_id ?? 0}/> 
+      </>
     ),
     width: '10em',
     shouldCellUpdate: diffBoxInvoice('each_box_invoice'),

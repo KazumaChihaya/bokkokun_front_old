@@ -1,0 +1,1 @@
+export const status_opt = ['未', '済'];

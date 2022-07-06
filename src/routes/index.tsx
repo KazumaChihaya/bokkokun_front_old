@@ -51,6 +51,18 @@ export const routes: (MenuDataItem & RouteObject)[] = [
     icon: antize(MdOutlineManageAccounts),
     component: './Earns',
   },
+  {
+    path: '/box_invoices',
+    name: 'box_invoices',
+    icon: antize(MdOutlineManageAccounts),
+    component: './BoxInvoices',
+  },
+  {
+    path: '/earn_invoices',
+    name: 'earn_invoices',
+    icon: antize(MdOutlineManageAccounts),
+    component: './EarnInvoices',
+  },
 
   {
     path: '/',
