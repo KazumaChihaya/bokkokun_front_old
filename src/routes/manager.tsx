@@ -1,7 +1,7 @@
 import { MenuDataItem } from '@ant-design/pro-layout';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { RouteObject } from 'react-router-dom';
-import { antize } from '../libs/icon';
+import { antize } from '@/libs/icon';
 
 export const routes: (MenuDataItem & RouteObject)[] = [
   {
@@ -16,57 +16,57 @@ export const routes: (MenuDataItem & RouteObject)[] = [
     ],
   },
   {
-    path: '/artists',
+    path: '/manager/artists',
     name: 'manager.artists',
     icon: antize(MdOutlineManageAccounts),
-    component: './Artists',
+    component: './Manager/Artists',
     hideChildrenInMenu: true,
     children: [
       {
         locale: 'menu.manager.artists.detail',
         name: 'manager.artists.detail',
         path: ':id',
-        component: './Artists/detail',
+        component: './Manager/Artists/detail',
       },
     ],
   },
   {
-    path: '/boxes',
+    path: '/manager/boxes',
     name: 'manager.boxes',
     icon: antize(MdOutlineManageAccounts),
-    component: './Boxes',
+    component: './Manager/Boxes',
     hideChildrenInMenu: true,
     children: [
       {
         locale: 'menu.manager.boxes.detail',
         name: 'manager.boxes.detail',
         path: ':id',
-        component: './Boxes/detail',
+        component: './Manager/Boxes/detail',
       },
     ],
   },
   {
-    path: '/earns',
+    path: '/manager/earns',
     name: 'manager.earns',
     icon: antize(MdOutlineManageAccounts),
-    component: './Earns',
+    component: './Manager/Earns',
   },
   {
-    path: '/box_invoices',
+    path: '/manager/box_invoices',
     name: 'manager.box_invoices',
     icon: antize(MdOutlineManageAccounts),
-    component: './BoxInvoices',
+    component: './Manager/BoxInvoices',
   },
   {
-    path: '/earn_invoices',
+    path: '/manager/earn_invoices',
     name: 'manager.earn_invoices',
     icon: antize(MdOutlineManageAccounts),
-    component: './EarnInvoices',
+    component: './Manager/EarnInvoices',
   },
 
   {
     path: '/',
-    redirect: '/artists',
+    redirect: '/manager/artists',
   },
   {
     component: './404',

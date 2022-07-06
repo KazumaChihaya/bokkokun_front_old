@@ -1,7 +1,7 @@
 import { MenuDataItem } from '@ant-design/pro-layout';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { RouteObject } from 'react-router-dom';
-import { antize } from '../libs/icon';
+import { antize } from '@/libs/icon';
 
 export const routes: (MenuDataItem & RouteObject)[] = [
   {
@@ -16,7 +16,7 @@ export const routes: (MenuDataItem & RouteObject)[] = [
     ],
   },
   {
-    path: '/artists',
+    path: '/manager/artists',
     name: 'artists',
     icon: antize(MdOutlineManageAccounts),
     component: './Artists',
@@ -31,7 +31,7 @@ export const routes: (MenuDataItem & RouteObject)[] = [
     ],
   },
   {
-    path: '/boxes',
+    path: '/manager/boxes',
     name: 'boxes',
     icon: antize(MdOutlineManageAccounts),
     component: './Boxes',
@@ -72,7 +72,7 @@ export const routes: (MenuDataItem & RouteObject)[] = [
 
   {
     path: '/',
-    redirect: '/artists',
+    redirect: '/manager/artists',
   },
   {
     component: './404',

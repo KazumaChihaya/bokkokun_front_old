@@ -1,7 +1,7 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Input, InputProps } from 'antd';
 import { useState } from 'react';
-import { normalizeWord } from '../libs/search';
+import { normalizeWord } from '@/libs/search';
 
 export type SearchBoxProps = Omit<InputProps, 'onChange'> & {
   onChange: (value: string) => void;

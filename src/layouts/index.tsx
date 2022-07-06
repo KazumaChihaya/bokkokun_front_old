@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { TransitionChildren } from 'react-transition-group/Transition';
 import { CustomTitleContext, CustomTitleData } from './hooks/useCustomTitle';
 import { isEqual } from 'lodash-es';
-import FadeTransition from '../components/FadeTransition';
+import FadeTransition from '@/components/FadeTransition';
 
 export * from './hooks';
 
