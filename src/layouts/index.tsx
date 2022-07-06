@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { routes as manager_routes } from '@/routes/manager';
 import { routes as artist_routes } from '@/routes/artist';
 import { useIntl } from 'react-intl';
-import { useSession } from '@/services/arrow-manage/auth';
+import { useSession } from '@/services/manager/auth';
 import React, { useEffect, useState } from 'react';
 import { TransitionChildren } from 'react-transition-group/Transition';
 import { CustomTitleContext, CustomTitleData } from './hooks/useCustomTitle';

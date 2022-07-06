@@ -34,8 +34,8 @@ export type CompanyDetail = Company & {
   branchCount: number;
 };
 
-const companyQueryKey = '/api/company/companies';
-const companyDetailsQueryKey = '/api/company/companies/all';
+const companyQueryKey = '/api/manager/company/companies';
+const companyDetailsQueryKey = '/api/manager/company/companies/all';
 
 export const useCompanies = () => useQuery<Company[]>(companyQueryKey);
 
@@ -54,7 +54,7 @@ export type AddCompanyTagsParam = {
 
 export type DeleteCompanyTagsParam = AddCompanyTagsParam;
 
-const tagsQueryKey = '/api/company/tags';
+const tagsQueryKey = '/api/manager/company/tags';
 
 export const useCompanyTags = () => useQuery<string[]>(tagsQueryKey);
 
@@ -62,7 +62,7 @@ export const useAddCompanyTagsMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: AddCompanyTagsParam) => {
-      return request('/api/company/addTags', { method: 'post', data });
+      return request('/api/manager/company/addTags', { method: 'post', data });
     },
     {
       onSuccess() {
@@ -78,7 +78,7 @@ export const useDeleteCompanyTagsMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: DeleteCompanyTagsParam) => {
-      return request('/api/company/deleteTags', { method: 'post', data });
+      return request('/api/manager/company/deleteTags', { method: 'post', data });
     },
     {
       onSuccess() {

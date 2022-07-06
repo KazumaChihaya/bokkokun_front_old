@@ -7,8 +7,8 @@ import { format } from 'date-fns';
 
 import {
   useDeleteActiveBoxMutation,
-} from '@/services/arrow-manage/artist';
-import { useChangeLockMutation } from '@/services/arrow-manage/box_invoice';
+} from '@/services/manager/artist';
+import { useChangeLockMutation } from '@/services/manager/box_invoice';
 
 export type ChangeLockProps = {
   yearmonth: string;

@@ -17,9 +17,9 @@ import { antize } from '@/libs/icon';
 import { MdOutlineDomain } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
-import { Box, BoxDetail, useBox } from '@/services/arrow-manage/box';
+import { Box, BoxDetail, useBox } from '@/services/manager/box';
 import { format } from 'date-fns';
-import { ActiveBox, ReserveBox } from '@/services/arrow-manage/artist';
+import { ActiveBox, ReserveBox } from '@/services/manager/artist';
 import { FormOutlined } from '@ant-design/icons';
 
 export type BoxDetailProps = {

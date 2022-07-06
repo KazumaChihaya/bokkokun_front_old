@@ -35,17 +35,17 @@ export type ChangeLockParam = {
 };
 
 
-const boxInvoiceQueryKey = '/api/box_invoice/';
+const boxInvoiceQueryKey = '/api/manager/box_invoice/';
 export const useBoxInvoice = (yearmonth: string) => useQuery<BoxInvoice>(boxInvoiceQueryKey+yearmonth);
 
-const eachBoxInvoiceQueryKey = '/api/box_invoice/each/';
+const eachBoxInvoiceQueryKey = '/api/manager/box_invoice/each/';
 export const useEachBoxInvoice = (box_invoice_id: number) => useQuery<BoxInvoice>(eachBoxInvoiceQueryKey+box_invoice_id);
 
 export const useStartCalcMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: StartCalcParam) => {
-      return request('/api/box_invoice/calc', { method: 'post', data: data });
+      return request('/api/manager/box_invoice/calc', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: StartCalcParam) {
@@ -58,7 +58,7 @@ export const useReCalcMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ReCalcParam) => {
-      return request('/api/box_invoice/calc', { method: 'patch', data: data });
+      return request('/api/manager/box_invoice/calc', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: ReCalcParam) {
@@ -71,7 +71,7 @@ export const useReCalcEachMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ReCalcEachParam) => {
-      return request('/api/box_invoice/each/calc', { method: 'patch', data: data });
+      return request('/api/manager/box_invoice/each/calc', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: ReCalcParam) {
@@ -80,12 +80,12 @@ export const useReCalcEachMutation = () => {
     },
   );
 };
-const artistQueryKey = '/api/artist/';
+const artistQueryKey = '/api/manager/artist/';
 export const useChangeStatusMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ChangeStatusParam) => {
-      return request('/api/box_invoice/each/status', { method: 'patch', data: data });
+      return request('/api/manager/box_invoice/each/status', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: ChangeStatusParam) {
@@ -99,7 +99,7 @@ export const useChangeLockMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ChangeLockParam) => {
-      return request('/api/box_invoice/lock', { method: 'post', data: data });
+      return request('/api/manager/box_invoice/lock', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: ChangeLockParam) {

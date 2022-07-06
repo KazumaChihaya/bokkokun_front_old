@@ -7,8 +7,8 @@ import { format } from 'date-fns';
 
 import {
   useDeleteActiveBoxMutation,
-} from '@/services/arrow-manage/artist';
-import { useChangeStatusMutation } from '@/services/arrow-manage/box_invoice';
+} from '@/services/manager/artist';
+import { useChangeStatusMutation } from '@/services/manager/box_invoice';
 
 export type ChangeStatusProps = {
   each_box_invoice_id: number;

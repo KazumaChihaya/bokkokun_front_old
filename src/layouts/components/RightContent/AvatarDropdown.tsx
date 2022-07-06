@@ -16,7 +16,7 @@ import {
 import {
   useLogoutMutation,
   useSession,
-} from '@/services/arrow-manage/auth';
+} from '@/services/manager/auth';
 
 export interface GlobalHeaderRightProps {
   menu?: boolean;

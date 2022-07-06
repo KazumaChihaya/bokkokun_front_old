@@ -10,9 +10,9 @@ import {
   ResignReserveBoxParam,
   useReserveToActiveBoxMutation,
   useResignReserveBoxMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 import { UseQueryResult } from 'react-query';
-import { Box, useBoxes } from '@/services/arrow-manage/box';
+import { Box, useBoxes } from '@/services/manager/box';
 import { format } from 'date-fns';
 
 export type ReserveResignToActiveProps = {

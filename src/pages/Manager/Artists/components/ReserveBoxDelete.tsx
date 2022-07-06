@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import {
   ReserveBox,
   useDeleteReserveBoxMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 
 export type ArtistDeleteProps = {
   reserve_box: ReserveBox;

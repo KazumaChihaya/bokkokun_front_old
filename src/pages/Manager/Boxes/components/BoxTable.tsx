@@ -1,7 +1,7 @@
 import {
   Box,
   useBoxes,
-} from '@/services/arrow-manage/box';
+} from '@/services/manager/box';
 import { Checkbox, Table } from 'antd';
 import { UseQueryResult } from 'react-query';
 import type { ColumnsType, TableProps } from 'antd/lib/table';

@@ -1,7 +1,7 @@
 import {
   Artist,
   useArtists,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 import { Checkbox, Table } from 'antd';
 import { UseQueryResult } from 'react-query';
 import type { ColumnsType, TableProps } from 'antd/lib/table';

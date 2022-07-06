@@ -1,13 +1,13 @@
 import {
   AddEarnParam, useCreateEarnMutation,
-} from '@/services/arrow-manage/earn';
+} from '@/services/manager/earn';
 import React, { useCallback, useRef, useState } from 'react';
 import { format, addMonths, subMonths } from 'date-fns';
 import { Button, DatePicker, Descriptions, Input, InputNumber, message, Modal } from 'antd';
 import moment from 'moment';
 import { TagsOutlined } from '@ant-design/icons';
 import ChangeLock from './ChangeLock';
-import { EarnInvoice } from '@/services/arrow-manage/artist';
+import { EarnInvoice } from '@/services/manager/artist';
 
 export type MonthChangerProps = {
   activeKey: string,

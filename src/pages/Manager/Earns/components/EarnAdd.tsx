@@ -1,6 +1,6 @@
 import {
   AddEarnParam, useCreateEarnMutation,
-} from '@/services/arrow-manage/earn';
+} from '@/services/manager/earn';
 import React, { useCallback, useRef, useState } from 'react';
 import { format } from 'date-fns';
 import { Button, DatePicker, Descriptions, Input, InputNumber, message, Modal } from 'antd';

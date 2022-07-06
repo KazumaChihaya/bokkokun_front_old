@@ -2,7 +2,7 @@ import {
   Earn,
   useEarns,
   useEarnsLength,
-} from '@/services/arrow-manage/earn';
+} from '@/services/manager/earn';
 import { Card, Checkbox, Descriptions, Pagination, Space, Table } from 'antd';
 import { UseQueryResult } from 'react-query';
 import type { ColumnsType, TableProps } from 'antd/lib/table';

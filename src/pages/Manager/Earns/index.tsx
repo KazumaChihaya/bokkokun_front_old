@@ -1,4 +1,4 @@
-import { Store, useStores } from '@/services/arrow-manage/earn';
+import { Store, useStores } from '@/services/manager/earn';
 import { Tabs } from 'antd';
 import React, { useState } from 'react';
 import { UseQueryResult } from 'react-query';

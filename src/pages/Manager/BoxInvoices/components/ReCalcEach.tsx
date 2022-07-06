@@ -7,8 +7,8 @@ import { format } from 'date-fns';
 
 import {
   useDeleteActiveBoxMutation,
-} from '@/services/arrow-manage/artist';
-import { useReCalcEachMutation } from '@/services/arrow-manage/box_invoice';
+} from '@/services/manager/artist';
+import { useReCalcEachMutation } from '@/services/manager/box_invoice';
 
 export type ReCalcEachProps = {
   artist_id: number;

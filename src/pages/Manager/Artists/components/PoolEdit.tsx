@@ -9,7 +9,7 @@ import {
   Pool,
   EditPoolParam,
   useEditPoolMutation,
-} from '@/services/arrow-manage/pool';
+} from '@/services/manager/pool';
 
 export type PoolEditProps = {
   pool: Pool;

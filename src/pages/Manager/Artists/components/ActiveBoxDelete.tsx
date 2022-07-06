@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import {
   ActiveBox,
   useDeleteActiveBoxMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 
 export type ArtistDeleteProps = {
   active_box: ActiveBox;

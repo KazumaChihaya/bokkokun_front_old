@@ -8,7 +8,7 @@ import {
   AddArtistParam,
   Artist,
   useUpdateArtistMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 
 export type ArtistEditProps = {
   artist: Artist;

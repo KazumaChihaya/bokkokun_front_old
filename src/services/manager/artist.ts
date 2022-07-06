@@ -168,10 +168,10 @@ export type DeleteReserveBoxParam = {
 
 
 
-const boxesQueryKey = '/api/box';
-const boxQueryKey = '/api/box/';
-const artistsQueryKey = '/api/artist';
-const artistQueryKey = '/api/artist/';
+const boxesQueryKey = '/api/manager/box';
+const boxQueryKey = '/api/manager/box/';
+const artistsQueryKey = '/api/manager/artist';
+const artistQueryKey = '/api/manager/artist/';
 
 
 
@@ -183,7 +183,7 @@ export const useCreateArtistMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: AddArtistParam) => {
-      return request('/api/artist', { method: 'post', data });
+      return request('/api/manager/artist', { method: 'post', data });
     },
     {
       onSuccess() {
@@ -197,7 +197,7 @@ export const useUpdateArtistMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: EditArtistParam) => {
-      return request('/api/artist/'+data.id, { method: 'patch', data: data.data });
+      return request('/api/manager/artist/'+data.id, { method: 'patch', data: data.data });
     },
     {
       onSuccess(res, data: EditArtistParam) {
@@ -215,7 +215,7 @@ export const useCreateActiveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: AddActiveBoxParam) => {
-      return request('/api/activebox', { method: 'post', data: data });
+      return request('/api/manager/activebox', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: AddActiveBoxParam) {
@@ -232,7 +232,7 @@ export const useCreateReserveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: AddReserveBoxParam) => {
-      return request('/api/reservebox', { method: 'post', data: data });
+      return request('/api/manager/reservebox', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: AddReserveBoxParam) {
@@ -249,7 +249,7 @@ export const useResignActiveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ResignActiveBoxParam) => {
-      return request('/api/activebox/resign', { method: 'post', data: data });
+      return request('/api/manager/activebox/resign', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: ResignActiveBoxParam) {
@@ -266,7 +266,7 @@ export const useResignReserveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ResignReserveBoxParam) => {
-      return request('/api/reservebox/resign', { method: 'post', data: data });
+      return request('/api/manager/reservebox/resign', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: ResignReserveBoxParam) {
@@ -283,7 +283,7 @@ export const useReserveToActiveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: ResignReserveBoxParam) => {
-      return request('/api/reservebox/toactive', { method: 'post', data: data });
+      return request('/api/manager/reservebox/toactive', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: ResignReserveBoxParam) {
@@ -301,7 +301,7 @@ export const useEditActiveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: EditActiveBoxParam) => {
-      return request('/api/activebox', { method: 'patch', data: data });
+      return request('/api/manager/activebox', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: EditActiveBoxParam) {
@@ -318,7 +318,7 @@ export const useEditReserveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: EditReserveBoxParam) => {
-      return request('/api/reservebox', { method: 'patch', data: data });
+      return request('/api/manager/reservebox', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: EditReserveBoxParam) {
@@ -335,7 +335,7 @@ export const useDeleteActiveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: DeleteActiveBoxParam) => {
-      return request('/api/activebox', { method: 'delete', data: {id: data.active_box_id} });
+      return request('/api/manager/activebox', { method: 'delete', data: {id: data.active_box_id} });
     },
     {
       onSuccess(res, data: DeleteActiveBoxParam) {
@@ -352,7 +352,7 @@ export const useDeleteReserveBoxMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: DeleteReserveBoxParam) => {
-      return request('/api/reservebox', { method: 'delete', data: {id: data.reserve_box_id} });
+      return request('/api/manager/reservebox', { method: 'delete', data: {id: data.reserve_box_id} });
     },
     {
       onSuccess(res, data: DeleteReserveBoxParam) {

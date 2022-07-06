@@ -41,9 +41,9 @@ type Store = {
 }
 
 
-const boxesQueryKey = '/api/box';
+const boxesQueryKey = '/api/manager/box';
 
 export const useBoxes = () => useQuery<Box[]>(boxesQueryKey);
 
-const boxQueryKey = '/api/box/';
+const boxQueryKey = '/api/manager/box/';
 export const useBox = (id: number) => useQuery<Box>(boxQueryKey+id);

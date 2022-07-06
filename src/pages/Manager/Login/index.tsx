@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { LoginForm, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '@/layouts/components/Footer';
-import { LoginParams, useLoginMutation } from '@/services/arrow-manage/auth';
+import { LoginParams, useLoginMutation } from '@/services/manager/auth';
 import { AxiosError } from 'axios';
 
 const LoginMessage: React.FC<{

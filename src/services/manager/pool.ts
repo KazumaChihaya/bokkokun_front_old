@@ -31,8 +31,8 @@ export type DeletePoolParam = {
 
 
 
-const poolQueryKey = '/api/pool/';
-const poolCalcQueryKey = '/api/pool/calc/';
+const poolQueryKey = '/api/manager/pool/';
+const poolCalcQueryKey = '/api/manager/pool/calc/';
 export const usePool = (artist_id: number) => useQuery<Pool>(poolQueryKey+artist_id);
 export const usePoolCalc = (artist_id: number) => useQuery<Pool>(poolCalcQueryKey+artist_id);
 
@@ -40,7 +40,7 @@ export const useCreatePoolMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: AddPoolParam) => {
-      return request('/api/pool', { method: 'post', data: data });
+      return request('/api/manager/pool', { method: 'post', data: data });
     },
     {
       onSuccess(res, data: AddPoolParam) {
@@ -55,7 +55,7 @@ export const useEditPoolMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: EditPoolParam) => {
-      return request('/api/pool', { method: 'patch', data: data });
+      return request('/api/manager/pool', { method: 'patch', data: data });
     },
     {
       onSuccess(res, data: EditPoolParam) {
@@ -70,7 +70,7 @@ export const useDeletePoolMutation = () => {
   const client = useQueryClient();
   return useMutation(
     (data: DeletePoolParam) => {
-      return request('/api/pool', { method: 'delete', data: data });
+      return request('/api/manager/pool', { method: 'delete', data: data });
     },
     {
       onSuccess(res, data: DeletePoolParam) {

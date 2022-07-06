@@ -2,7 +2,7 @@ import {
   Earn,
   useEarns,
   useEarnsLength,
-} from '@/services/arrow-manage/earn';
+} from '@/services/manager/earn';
 import { Card, Checkbox, Descriptions, Pagination, Space, Table } from 'antd';
 import { UseQueryResult } from 'react-query';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
@@ -15,8 +15,8 @@ import { getScrollMax, getScrollTop } from '@/libs/scroll';
 import { format } from 'date-fns';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { status_opt } from './util';
-import { useBoxInvoice, useEachBoxInvoice } from '@/services/arrow-manage/box_invoice';
-import { BoxInvoice, EachBoxInvoice } from '@/services/arrow-manage/artist';
+import { useBoxInvoice, useEachBoxInvoice } from '@/services/manager/box_invoice';
+import { BoxInvoice, EachBoxInvoice } from '@/services/manager/artist';
 import StartCalc from './StartCalc';
 import ReCalc from './ReCalc';
 import ReCalcEach from './ReCalcEach';

@@ -1,4 +1,4 @@
-import { Store, useStores } from '@/services/arrow-manage/earn';
+import { Store, useStores } from '@/services/manager/earn';
 import { Card, Space, Tabs } from 'antd';
 import React, { useState } from 'react';
 import { UseQueryResult } from 'react-query';
@@ -7,8 +7,8 @@ import { format } from 'date-fns'
 import BoxInvoiceTable from './components/BoxInvoiceTable';
 import MonthChanger from './components/MonthChanger';
 import StartCalc from './components/StartCalc';
-import { BoxInvoice } from '@/services/arrow-manage/artist';
-import { useBoxInvoice } from '@/services/arrow-manage/box_invoice';
+import { BoxInvoice } from '@/services/manager/artist';
+import { useBoxInvoice } from '@/services/manager/box_invoice';
 import ChangeLock from './components/ChangeLock';
 
 const { TabPane } = Tabs;

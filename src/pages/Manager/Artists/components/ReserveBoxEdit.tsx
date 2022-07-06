@@ -9,7 +9,7 @@ import {
   ReserveBox,
   EditReserveBoxParam,
   useEditReserveBoxMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 
 export type ArtistEditProps = {
   reserve_box: ReserveBox;

@@ -8,7 +8,7 @@ import { format } from 'date-fns';
 import {
   Pool,
   useDeletePoolMutation,
-} from '@/services/arrow-manage/pool';
+} from '@/services/manager/pool';
 
 export type ArtistDeleteProps = {
   pool: Pool;

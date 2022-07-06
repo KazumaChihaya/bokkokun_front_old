@@ -6,11 +6,11 @@ import moment from "moment";
 
 import {
   Artist,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 import {
   AddPoolParam,
   useCreatePoolMutation,
-} from '@/services/arrow-manage/pool';
+} from '@/services/manager/pool';
 import { format } from 'date-fns';
 
 export type PoolAddProps = {

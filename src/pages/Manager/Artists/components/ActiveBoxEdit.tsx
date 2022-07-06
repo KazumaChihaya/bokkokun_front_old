@@ -9,7 +9,7 @@ import {
   ActiveBox,
   EditActiveBoxParam,
   useEditActiveBoxMutation,
-} from '@/services/arrow-manage/artist';
+} from '@/services/manager/artist';
 
 export type ArtistEditProps = {
   active_box: ActiveBox;
