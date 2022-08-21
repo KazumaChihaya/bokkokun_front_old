@@ -10,4 +10,6 @@ export default {
   'menu.manager.exception.403': '403',
   'menu.manager.exception.404': '404',
   'menu.manager.exception.500': '500',
+
+  'menu.artist.home': 'ホーム',
 };

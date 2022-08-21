@@ -37,12 +37,10 @@ const Login: React.FC = () => {
         message.success(defaultLoginSuccessMessage);
         /** redirect(クエパラ)で指定されたページに移動 */
         if (!history) return;
-        const query = new URLSearchParams(location.search);
-        const redirect = query.get('redirect');
         if (msg.type === 'manager') {
-          navigate(redirect || '/manager/artists');
+          navigate('/manager/artists');
         } else {
-          navigate(redirect || '/artist/artists');
+          navigate('/artist/home');
         }
         return;
       }
@@ -75,7 +73,7 @@ const Login: React.FC = () => {
             <LoginMessage content="ユーザー名かパスワードが間違っています" />
           )}
           <ProFormText
-            name="email"
+            name="mail"
             fieldProps={{
               size: 'large',
               prefix: <UserOutlined className={styles.prefixIcon} />,
@@ -89,7 +87,7 @@ const Login: React.FC = () => {
             ]}
           />
           <ProFormText.Password
-            name="password"
+            name="pass"
             fieldProps={{
               size: 'large',
               prefix: <LockOutlined className={styles.prefixIcon} />,

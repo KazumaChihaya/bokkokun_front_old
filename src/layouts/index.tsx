@@ -52,6 +52,8 @@ export default function LayoutWrapper() {
     }
   }, [titleState, location.pathname]);
 
+  console.log(session?.type);
+
   return (
     <Layout
       /*

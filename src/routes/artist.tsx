@@ -16,57 +16,14 @@ export const routes: (MenuDataItem & RouteObject)[] = [
     ],
   },
   {
-    path: '/artist/artists',
-    name: 'artist.artists',
+    path: '/artist/home',
+    name: 'artist.home',
     icon: antize(MdOutlineManageAccounts),
-    component: './Artist/Artists',
-    hideChildrenInMenu: true,
-    children: [
-      {
-        locale: 'menu.artist.artists.detail',
-        name: 'artist.artists.detail',
-        path: ':id',
-        component: './Artist/Artists/detail',
-      },
-    ],
+    component: './Artist/Home/index',
   },
-  {
-    path: '/artist/boxes',
-    name: 'artist.boxes',
-    icon: antize(MdOutlineManageAccounts),
-    component: './Artist/Boxes',
-    hideChildrenInMenu: true,
-    children: [
-      {
-        locale: 'menu.artist.boxes.detail',
-        name: 'artist.boxes.detail',
-        path: ':id',
-        component: './Artist/Boxes/detail',
-      },
-    ],
-  },
-  {
-    path: '/artist/earns',
-    name: 'artist.earns',
-    icon: antize(MdOutlineManageAccounts),
-    component: './Artist/Earns',
-  },
-  {
-    path: '/artist/box_invoices',
-    name: 'artist.box_invoices',
-    icon: antize(MdOutlineManageAccounts),
-    component: './Artist/BoxInvoices',
-  },
-  {
-    path: '/artist/earn_invoices',
-    name: 'artist.earn_invoices',
-    icon: antize(MdOutlineManageAccounts),
-    component: './Artist/EarnInvoices',
-  },
-
   {
     path: '/',
-    redirect: '/artist/artists',
+    redirect: '/artist/index',
   },
   {
     component: './404',
