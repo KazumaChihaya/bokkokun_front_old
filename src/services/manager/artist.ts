@@ -80,6 +80,7 @@ export type EachEarnInvoice = {
   artist_id: number,
   money: number,
   status: boolean,
+  offset_money: number,
 };
 
 

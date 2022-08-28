@@ -1,5 +1,6 @@
-import { useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { Box } from '../manager/box';
+import { request } from '@/libs/request';
 
 // Artist
 export type Artist = {
@@ -79,8 +80,54 @@ export type EachEarnInvoice = {
   artist_id: number,
   money: number,
   status: boolean,
+  offset_money: number,
 };
+
+export type Offset = {
+  artist_id: number,
+  date: string,
+  money: number,
+  yearmonth: string,
+  earn_invoice_yearmonth: string,
+}
+
+export type OffsetParam = {
+  yearmonth: string,
+}
+export type PayRequestParam = {
+  artist_id: number,
+  yearmonth: string,
+}
+
 
 const artistQueryKey = '/api/artist/home';
 
 export const useArtist = () => useQuery<Artist>(artistQueryKey);
+
+export const useOffsetMutation = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (data: OffsetParam) => {
+      return request('/api/artist/offset', { method: 'post', data: {yearmonth: data.yearmonth} });
+    },
+    {
+      onSuccess(res, data: OffsetParam) {
+        client.invalidateQueries(artistQueryKey);
+      },
+    },
+  );
+};
+
+export const usePayRequestMutation = () => {
+  const client = useQueryClient();
+  return useMutation(
+    (data: PayRequestParam) => {
+      return request('/api/artist/payrequest', { method: 'post', data: {artist_id: data.artist_id, yearmonth: data.yearmonth} });
+    },
+    {
+      onSuccess(res, data: PayRequestParam) {
+        client.invalidateQueries(artistQueryKey);
+      },
+    },
+  );
+};

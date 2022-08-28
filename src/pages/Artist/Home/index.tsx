@@ -11,7 +11,7 @@ import {
 
 import React from 'react';
 import { UseQueryResult } from 'react-query';
-import { ArtistDetail, BoxInvoice, EarnInvoice, Artist, ActiveBox, ReserveBox, useArtist } from '@/services/artist/artist';
+import { ArtistDetail, BoxInvoice, EarnInvoice, Artist, ActiveBox, ReserveBox, useArtist, Offset } from '@/services/artist/home';
 import { antize } from '@/libs/icon';
 import { MdOutlineDomain } from 'react-icons/md';
 import { Link } from 'react-router-dom';
@@ -22,6 +22,7 @@ import { format } from 'date-fns';
 import ActiveBoxAdd from './components/ActiveBoxAdd';
 import { status_opt } from '@/pages/Manager/BoxInvoices/components/util';
 import { Earn } from '@/services/manager/earn';
+import OffsetCalc from './components/OffsetCalc';
 
 export type ArtistDetailProps = {
   artist: ArtistDetail;
@@ -59,6 +60,14 @@ const diffEarn = (...props: (keyof Earn)[]) => {
   return (earn: Earn, prev: Earn) => {
     for (const prop of props) {
       if (earn[prop] !== prev[prop]) return true;
+    }
+    return false;
+  };
+};
+const diffOffset = (...props: (keyof Offset)[]) => {
+  return (offset: Offset, prev: Offset) => {
+    for (const prop of props) {
+      if (offset[prop] !== prev[prop]) return true;
     }
     return false;
   };
@@ -116,7 +125,7 @@ const boxInvoiceColumns: ColumnsType<BoxInvoice> = [
     key: 'ended_on',
     render: (_, { each_box_invoice, id }) => (
       <>
-        <span style={{marginRight: '5px'}}>{status_opt[each_box_invoice?.status ? 1 : 0]}</span>
+        <span style={{marginRight: '5px'}}>{id === 0 ? '前払' : (status_opt[each_box_invoice?.status ? 1 : 0])}</span>
       </>
     ),
     width: '10em',
@@ -134,12 +143,30 @@ const earnInvoiceColumns: ColumnsType<EarnInvoice> = [
     shouldCellUpdate: diffEarnInvoice('yearmonth'),
   },
   {
-    title: '金額',
+    title: '売上',
     key: 'money',
     render: (_, { each_earn_invoice, id }) => (
       <span>{each_earn_invoice ? '¥'+each_earn_invoice?.money.toLocaleString() : 'データなし'}</span>
     ),
-    width: '10em',
+    width: '100px',
+    shouldCellUpdate: diffEarnInvoice('each_earn_invoice'),
+  },
+  {
+    title: '箱代相殺',
+    key: 'offset_money',
+    render: (_, { each_earn_invoice, id }) => (
+      <span>{each_earn_invoice ? '¥'+each_earn_invoice?.offset_money.toLocaleString() : 'データなし'}</span>
+    ),
+    width: '100px',
+    shouldCellUpdate: diffEarnInvoice('each_earn_invoice'),
+  },
+  {
+    title: '支払金額',
+    key: 'result_money',
+    render: (_, { each_earn_invoice, id }) => (
+      <span>{each_earn_invoice ? '¥'+(each_earn_invoice?.money - each_earn_invoice?.offset_money).toLocaleString() : 'データなし'}</span>
+    ),
+    width: '100px',
     shouldCellUpdate: diffEarnInvoice('each_earn_invoice'),
   },
   {
@@ -148,8 +175,46 @@ const earnInvoiceColumns: ColumnsType<EarnInvoice> = [
     render: (_, { each_earn_invoice, id }) => (
       <span>{each_earn_invoice ? (each_earn_invoice?.status ? '済' : '未') : ''}</span>
     ),
-    width: '10em',
+    width: '50px',
     shouldCellUpdate: diffEarnInvoice('each_earn_invoice'),
+  },
+];
+
+const offsetColumns: ColumnsType<Offset> = [
+  {
+    title: '精算',
+    key: 'yearmonth',
+    render: (_, { earn_invoice_yearmonth, id }) => (
+      <span>{format(new Date(earn_invoice_yearmonth+'-01'), 'yyyy年MM月分から')}</span>
+    ),
+    width: '150px',
+    shouldCellUpdate: diffOffset('earn_invoice_yearmonth'),
+  },
+  {
+    title: '箱代',
+    key: 'yearmonth',
+    render: (_, { yearmonth, id }) => (
+      <span>{format(new Date(yearmonth+'-01'), 'yyyy年MM月分を引く')}</span>
+    ),
+    width: '160px',
+    shouldCellUpdate: diffOffset('yearmonth'),
+  },
+  {
+    title: '金額',
+    key: 'money',
+    render: (_, { money, id }) => (
+      <span>{'¥'+money.toLocaleString()}</span>
+    ),
+    width: '80px',
+    shouldCellUpdate: diffOffset('money'),
+  },
+  {
+    title: '相殺日',
+    key: 'date',
+    render: (_, { date, id }) => (
+      <span>{format(new Date(date), 'yyyy年MM月dd日')}</span>
+    ),
+    shouldCellUpdate: diffOffset('date'),
   },
 ];
 
@@ -186,13 +251,16 @@ const earnColumns: ColumnsType<Earn> = [
 
 const ArtistHomePage: React.FC = () => {
   const { data: data } =
-    useArtist() as UseQueryResult<{artist: Artist, boxes: Box[], active_boxes: ActiveBox[], reserve_boxes: ReserveBox[], box_invoices: BoxInvoice[], earn_invoices: EarnInvoice[], earns: Earn[], deposit: number}>;
+    useArtist() as UseQueryResult<{artist: Artist, boxes: Box[], active_boxes: ActiveBox[], reserve_boxes: ReserveBox[], box_invoices: BoxInvoice[], earn_invoices: EarnInvoice[], earns: Earn[], deposit: number, offsets: Offset[], latest_yet_box_invoice_yearmonth?: string, latest_yet_box_invoice_money?: number}>;
   const artist = data?.artist;
   const boxes = data?.boxes;
   const box_invoices = data?.box_invoices;
   const earn_invoices = data?.earn_invoices;
   const earns = data?.earns;
-  const deposit = data?.deposit;
+  const deposit = data?.deposit ?? 0;
+  const offsets = data?.offsets;
+  const latest_yet_box_invoice_yearmonth = data?.latest_yet_box_invoice_yearmonth;
+  const latest_yet_box_invoice_money = data?.latest_yet_box_invoice_money;
 
   const bp = useBreakpoint();
 
@@ -216,22 +284,20 @@ const ArtistHomePage: React.FC = () => {
         >{`${artist.name}`}</Title>
         <div style={{ color: 'GrayText' }}>{artist.code}</div>
       </div>
-      <Row style={{ marginTop: '15px' }}>
+      <Row style={{ marginTop: '15px' }} gutter={[8, 16]}>
         <Col
-          xxl={12}
-          xl={12}
           lg={12}
+          md={24}
+          sm={24}
+          xs={24}
           span={12}
-          style={{ paddingRight: '10px' }}
         >
           <Card title={<>{antize(MdOutlineDomain)} 現在の残高</>}>
             <MyDescriptions>
               <Item label="現在の残高">¥{deposit?.toLocaleString()}</Item>
             </MyDescriptions>
             <br></br>
-            <ActiveBoxAdd artist={artist}/>　
-            <ActiveBoxAdd artist={artist}/>　
-            <ActiveBoxAdd artist={artist}/>
+            <OffsetCalc yearmonth={latest_yet_box_invoice_yearmonth} box_money={latest_yet_box_invoice_money} deposit={deposit}/>　
           </Card>
           <br></br>
           <Card title={<><FormOutlined style={{ marginRight: '0.3em' }} />契約・予約中の箱</>}>
@@ -280,13 +346,31 @@ const ArtistHomePage: React.FC = () => {
               rowKey="id"
             />
           </Card>
+          <br></br>
+          <Card
+            title={
+              <>
+                <FormOutlined style={{ marginRight: '0.3em' }} />
+                箱代相殺履歴
+              </>
+            }
+          >
+            <Table
+              scroll={{ x: true }}
+              dataSource={offsets}
+              columns={offsetColumns}
+              size="small"
+              pagination={false}
+              rowKey="id"
+            />
+          </Card>
         </Col>
         <Col
-          xxl={12}
-          xl={12}
           lg={12}
+          md={24}
+          sm={24}
+          xs={24}
           span={12}
-          style={{ paddingLeft: '10px' }}
         >
           <Card
             title={

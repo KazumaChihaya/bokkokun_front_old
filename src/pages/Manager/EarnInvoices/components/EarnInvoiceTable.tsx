@@ -58,7 +58,7 @@ const eachEarnInvoiceColumns: ColumnsType<EachEarnInvoice> = [
     shouldCellUpdate: diff('artist'),
   },
   {
-    title: '金額',
+    title: '売上金額',
     key: 'money',
     render: (_, { money, id }) => (
       <div style={{ width: '6em' }}>
@@ -66,6 +66,26 @@ const eachEarnInvoiceColumns: ColumnsType<EachEarnInvoice> = [
       </div>
     ),
     shouldCellUpdate: diff('money'),
+  },
+  {
+    title: '箱代相殺使用',
+    key: 'offset_money',
+    render: (_, { offset_money, id }) => (
+      <div style={{ width: '6em' }}>
+        ¥{offset_money.toLocaleString()}
+      </div>
+    ),
+    shouldCellUpdate: diff('offset_money'),
+  },
+  {
+    title: '支払金額',
+    key: 'result_money',
+    render: (_, { offset_money, money, id }) => (
+      <div style={{ width: '6em' }}>
+        ¥{(money - offset_money).toLocaleString()}
+      </div>
+    ),
+    shouldCellUpdate: diff('money', 'offset_money'),
   },
   {
     title: '支払',
