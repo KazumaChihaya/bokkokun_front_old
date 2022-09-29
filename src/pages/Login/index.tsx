@@ -36,7 +36,8 @@ const Login: React.FC = () => {
         const defaultLoginSuccessMessage = 'ログイン成功！';
         message.success(defaultLoginSuccessMessage);
         /** redirect(クエパラ)で指定されたページに移動 */
-        if (!history) return;
+        // if (!history) return;
+        console.log(msg);
         if (msg.type === 'manager') {
           navigate('/manager/artists');
         } else {

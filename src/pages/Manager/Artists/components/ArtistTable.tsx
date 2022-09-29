@@ -1,7 +1,4 @@
-import {
-  Artist,
-  useArtists,
-} from '@/services/manager/artist';
+import { Artist, useArtists } from '@/services/manager/artist';
 import { Checkbox, Table } from 'antd';
 import { UseQueryResult } from 'react-query';
 import type { ColumnsType, TableProps } from 'antd/lib/table';
@@ -64,13 +61,14 @@ const ArtistTable: React.FC<ArtistTableProps> = ({
   filter,
   rowSelection: rowSelectionProps,
 }) => {
-  const { data: _rawArtists, isLoading } =
-    useArtists() as UseQueryResult<Artist[]>;
+  const { data: data, isLoading } = useArtists() as UseQueryResult<{
+    artists: Artist[];
+  }>;
   const artists = useMemo(() => {
-    const rawArtists = _rawArtists ?? [];
+    const rawArtists = data?.artists ?? [];
     const filteredArtists = filter ? filter(rawArtists) : rawArtists;
     return filteredArtists.map((v) => ({ ...v, key: v.id }));
-  }, [_rawArtists, filter]);
+  }, [data?.artists, filter]);
 
   // removeStaleKeys from selection
   useEffect(() => {
@@ -211,9 +209,7 @@ const ArtistTable: React.FC<ArtistTableProps> = ({
 
 export const useArtistTable = (props: ArtistTableProps) => {
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const [selectedArtists, setSelectedArtists] = useState<Artist[]>(
-    [],
-  );
+  const [selectedArtists, setSelectedArtists] = useState<Artist[]>([]);
   const rowSelection = {
     selectedRowKeys,
     onChange: (keys: React.Key[], artists: Artist[]) => {

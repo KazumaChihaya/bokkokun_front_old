@@ -28,7 +28,11 @@ export default function LayoutWrapper() {
 
   useEffect(() => {
     // 未ログイン時は強制的にログインページへ移動
-    if (!isFetching && (session?.status ?? 'ng') != 'ok' && location.pathname !== '/login') {
+    if (
+      !isFetching &&
+      (session?.status ?? 'ng') != 'ok' &&
+      location.pathname !== '/login'
+    ) {
       requestAnimationFrame(() => {
         navigate('/login');
       });
